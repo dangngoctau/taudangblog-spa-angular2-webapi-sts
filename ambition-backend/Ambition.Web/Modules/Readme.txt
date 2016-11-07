@@ -1,0 +1,1 @@
+﻿The folder "modules" in bin is used to store all modules such as Ambition.Product.
