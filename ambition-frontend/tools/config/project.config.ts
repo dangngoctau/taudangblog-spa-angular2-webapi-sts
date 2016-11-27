@@ -20,8 +20,7 @@ export class ProjectConfig extends SeedConfig {
     // Add `NPM` third-party libraries to be injected/bundled.
     this.NPM_DEPENDENCIES = [
       ...this.NPM_DEPENDENCIES,
-      // {src: 'jquery/dist/jquery.min.js', inject: 'libs'},
-      // {src: 'lodash/lodash.min.js', inject: 'libs'},
+      { src: 'oidc-client/lib/oidc-client.js', inject: 'libs' }
     ];
 
     // Add `local` third-party libraries to be injected/bundled.
@@ -31,6 +30,11 @@ export class ProjectConfig extends SeedConfig {
       // {src: `${this.CSS_SRC}/path-to-lib/test-lib.css`, inject: true, vendor: false},
     ];
 
+    this.SYSTEM_CONFIG_DEV.paths['oidc-client'] = `${this.NPM_BASE}oidc-client/lib/oidc-client.js`;
+    this.SYSTEM_BUILDER_CONFIG.packages['oidc-client'] = {
+      main: 'lib/oidc-client.min.js',
+      defaultExtension: 'js'
+    };
     /* Add to or override NPM module configurations: */
     // this.mergeObject(this.PLUGIN_CONFIGS['browser-sync'], { ghostMode: false });
   }

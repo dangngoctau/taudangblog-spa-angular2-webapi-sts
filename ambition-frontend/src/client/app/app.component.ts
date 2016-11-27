@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { Config } from './shared/index';
+import { AuthService } from './core/auth.service';
 import './operators';
 
 /**

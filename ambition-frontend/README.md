@@ -1,3 +1,9 @@
+# Note:
+add oidc-client related stuff to project.config.ts
+add task build.silent_renew.prod, and add that task to build.prod task in gulpfile
+add silent_renew.html
+
+
 # Introduction
 
 [![Angular Style Guide](https://mgechev.github.io/angular2-style-guide/images/badge.svg)](https://angular.io/styleguide)
