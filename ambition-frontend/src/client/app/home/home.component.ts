@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NameListService } from '../shared/index';
+import { ProductService } from './index';
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -15,30 +15,30 @@ export class HomeComponent implements OnInit {
 
   newName: string = '';
   errorMessage: string;
-  names: any[] = [];
+  products: any[] = [];
 
   /**
    * Creates an instance of the HomeComponent with the injected
    * NameListService.
    *
-   * @param {NameListService} nameListService - The injected NameListService.
+   * @param {ProductService} productService - The injected ProductService.
    */
-  constructor(public nameListService: NameListService) {}
+  constructor(public productService: ProductService) {}
 
   /**
    * Get the names OnInit
    */
   ngOnInit() {
-    this.getNames();
+    this.loadProducts();
   }
 
   /**
-   * Handle the nameListService observable
+   * Handle the productService observable
    */
-  getNames() {
-    this.nameListService.get()
+  loadProducts() {
+    this.productService.loadProducts()
       .subscribe(
-        names => this.names = names,
+        products => this.products = products,
         error =>  this.errorMessage = <any>error
       );
   }
@@ -47,9 +47,9 @@ export class HomeComponent implements OnInit {
    * Pushes a new name onto the names array
    * @return {boolean} false to prevent default form submit behavior to refresh the page.
    */
-  addName(): boolean {
+  addProduct(): boolean {
     // TODO: implement nameListService.post
-    this.names.push(this.newName);
+    this.products.push(this.newName);
     this.newName = '';
     return false;
   }

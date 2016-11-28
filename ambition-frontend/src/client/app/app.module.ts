@@ -33,7 +33,7 @@ import { AuthServiceConfig } from './core/auth.service';
 export class AppModule {
   static getAuthServiceConfig(): AuthServiceConfig {
     let config = new AuthServiceConfig();
-    config.authority = 'https://localhost:44300';
+    config.authority = 'http://localhost:44304';
     config.clientId = 'js';
     config.redirectUri = window.location.protocol + '//' + window.location.host + '/oauth_callback';
     config.silentRediectUri = window.location.protocol + '//' + window.location.host + '/silent-renew.html';

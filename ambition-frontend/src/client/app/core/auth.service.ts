@@ -1,11 +1,8 @@
 import { Injectable, EventEmitter } from '@angular/core';
 import { Router } from '@angular/router';
-import { Http, Headers, RequestOptions, Response } from '@angular/http';
-import { Observable } from 'rxjs/Rx';
+// import { Http, Headers, RequestOptions, Response } from '@angular/http';
+// import { Observable } from 'rxjs/Rx';
 import { UserManager, Log } from 'oidc-client';
-
-
-declare var WebStorageStateStore: any;
 
 export class AuthServiceConfig {
     authority: string;
@@ -25,9 +22,8 @@ export class AuthService {
     userLoggedIn: EventEmitter<string> = new EventEmitter<string>(null);
     private userManager: UserManager;
     private user: any = null;
-    private authHeaders: Headers;
 
-    constructor(private config: AuthServiceConfig, private router: Router, private http: Http) {
+    constructor(private config: AuthServiceConfig, private router: Router) {
         Log.logger = console;
         console.log('auth service is created at', Date.now().toString());
         let settings = this.getUserManagerSettings();
@@ -36,9 +32,6 @@ export class AuthService {
             console.log('loaded userd: ', user);
             this.userLoggedIn.emit(`${user.profile.given_name} expires at ${user.expires_at}`);
             this.user = user;
-        });
-        this.userManager.events.addAccessTokenExpiring((event: any) => {
-            console.info('accessTokenExpiring raised');
         });
     }
 
@@ -54,7 +47,6 @@ export class AuthService {
             automaticSilentRenew: this.config.automaticSilentRenew,
             filterProtocolClaims: this.config.filterProtocolClaims,
             loadUserInfo: this.config.loadUserInfo,
-            checkSessionInterval: 120 * 1000
             //userStore: new WebStorageStateStore({ store: window.localStorage })
         };
     }
@@ -77,7 +69,7 @@ export class AuthService {
 
     receiveToken(callbackUrl: string) {
         this.userManager.signinRedirectCallback(callbackUrl).then((user: any) => {
-            this.userLoggedIn.emit(`${user.profile.given_name} expires at ${user.expires_at} s`);
+            this.userLoggedIn.emit(`${user.profile.given_name} expires at ${user.expires_at}`);
             this.router.navigate(['']);
         }).catch((err: any) => {
             console.log(err);
@@ -93,45 +85,7 @@ export class AuthService {
         return this.user !== null;
     }
 
-
-    get(url: string, options?: RequestOptions): Observable<Response> {
-        options = this.setRequestOptions(options);
-        return this.http.get(url, options);
-    }
-
-    put(url: string, data: any, options?: RequestOptions): Observable<Response> {
-        let body = JSON.stringify(data);
-        options = this.setRequestOptions(options);
-        return this.http.put(url, body, options);
-    }
-
-    delete(url: string, options?: RequestOptions): Observable<Response> {
-        options = this.setRequestOptions(options);
-        return this.http.delete(url, options);
-    }
-
-    post(url: string, data: any, options?: RequestOptions): Observable<Response> {
-        let body = JSON.stringify(data);
-        options = this.setRequestOptions(options);
-        return this.http.post(url, body, options);
-    }
-
-    private setAuthHeaders(user: any) {
-        this.authHeaders = new Headers();
-        this.authHeaders.append('Authorization', `${user.token_type} ${user.access_token}`);
-        this.authHeaders.append('Content-Type', 'application/json');
-        this.authHeaders.append('Accept', 'application/json');
-    }
-
-    private setRequestOptions(options?: RequestOptions) {
-        this.setAuthHeaders(this.user);
-        if (options) {
-            //todo:
-            //options.headers.append(this.authHeaders.keys[0], this.authHeaders.values[0]);
-        } else {
-            options = new RequestOptions({ headers: this.authHeaders });
-        }
-
-        return options;
+    get authorizationHeader(): string {
+        return this.user === null ? '' : `${this.user.token_type} ${this.user.access_token}`;
     }
 }
