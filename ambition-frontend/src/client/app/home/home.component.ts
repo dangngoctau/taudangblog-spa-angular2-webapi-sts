@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ProductService } from './index';
+import { ProductService, Product } from './index';
 
 /**
  * This class represents the lazy loaded HomeComponent.
@@ -23,7 +23,7 @@ export class HomeComponent implements OnInit {
    *
    * @param {ProductService} productService - The injected ProductService.
    */
-  constructor(public productService: ProductService) {}
+  constructor(public productService: ProductService) { }
 
   /**
    * Get the names OnInit
@@ -38,8 +38,8 @@ export class HomeComponent implements OnInit {
   loadProducts() {
     this.productService.loadProducts()
       .subscribe(
-        products => this.products = products,
-        error =>  this.errorMessage = <any>error
+      products => this.products = products,
+      error => this.errorMessage = <any>error
       );
   }
 
@@ -48,9 +48,14 @@ export class HomeComponent implements OnInit {
    * @return {boolean} false to prevent default form submit behavior to refresh the page.
    */
   addProduct(): boolean {
-    // TODO: implement nameListService.post
-    this.products.push(this.newName);
+    let newProduct = <Product>{ name: this.newName, description: '' };
+    this.productService.addProduct(newProduct)
+      .subscribe((id: string) => {
+        newProduct.id = id;
+        this.products.push(newProduct);
+      });
     this.newName = '';
+
     return false;
   }
 
