@@ -125,6 +125,7 @@
     <Content Include="Config\idsrv3test.pfx">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <None Include="Properties\PublishProfiles\local.pubxml" />
     <None Include="Properties\PublishProfiles\MasterDotNetSpa - Web Deploy %282%29.pubxml" />
     <None Include="Properties\PublishProfiles\MasterDotNetSpa - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
@@ -162,7 +163,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>10466</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>https://localhost:44300</IISUrl>
+          <IISUrl>http://localhost:44304</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

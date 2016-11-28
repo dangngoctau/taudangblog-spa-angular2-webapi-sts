@@ -24,7 +24,7 @@ namespace Ambition.Sts.Host
             {
                 SiteName = "Embedded IdentityServer",
                 SigningCertificate = CertificateHelper.GetDefaultCertificate(),
-
+                RequireSsl = false,
                 Factory = new IdentityServerServiceFactory()
                     .UseInMemoryUsers(Users.Get())
                     .UseInMemoryClients(Clients.Get())
