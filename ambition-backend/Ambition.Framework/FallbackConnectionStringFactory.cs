@@ -14,10 +14,11 @@ namespace Ambition.Framework
 
         public FallbackConnectionStringFactory(string fallbackConnectionStringName)
         {
-            ConnectionStringSettings fallbackConnectionSettings = ConfigurationManager.ConnectionStrings[fallbackConnectionStringName];
-
+            var fallbackConnectionSettings = ConfigurationManager.ConnectionStrings[fallbackConnectionStringName];
             if (fallbackConnectionSettings == null)
+            {
                 throw new ConfigurationErrorsException(string.Format("There is no connection string matching fallback name {0}", fallbackConnectionStringName));
+            }
 
             _fallbackConnectionSettings = fallbackConnectionSettings;
         }

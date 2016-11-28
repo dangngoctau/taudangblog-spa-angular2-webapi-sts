@@ -7,7 +7,6 @@ using Microsoft.Owin.Cors;
 using Owin;
 
 [assembly: OwinStartup(typeof(Ambition.Web.Startup))]
-
 namespace Ambition.Web
 {
     public class Startup

@@ -36,7 +36,7 @@ namespace Ambition.Product.Controllers
 
             var product = await _productService.CreateProductAsync(viewModel);
 
-            return Created<Guid>("/product/" + product, product);
+            return Created("/product/" + product, product);
         }
     }
 }

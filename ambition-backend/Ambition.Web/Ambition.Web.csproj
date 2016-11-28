@@ -151,6 +151,10 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Web.Services" />
     <Reference Include="System.EnterpriseServices" />
+    <Reference Include="Thinktecture.IdentityModel.Owin.RequireSsl, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Thinktecture.IdentityModel.Owin.RequireSsl.1.0.1\lib\net45\Thinktecture.IdentityModel.Owin.RequireSsl.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="System.Net.Http.Formatting">
@@ -209,7 +213,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>51752</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:51752/</IISUrl>
+          <IISUrl>http://localhost:9800/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
@@ -227,7 +231,8 @@
     <Error Condition="!Exists('..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.0\build\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.props'))" />
   </Target>
   <PropertyGroup>
-    <PostBuildEvent>xcopy /E /Y "$(SolutionDir)\Ambition.Product\bin\$(ConfigurationName)"  "$(TargetDir)\Modules"</PostBuildEvent>
+    <PostBuildEvent>xcopy /E /Y "$(SolutionDir)\Ambition.Product\bin\$(ConfigurationName)\Ambition.Product\Ambition.Product.dll"  "$(TargetDir)\Modules\Ambition.Product\"
+xcopy /E /Y "$(SolutionDir)\Ambition.Product\bin\$(ConfigurationName)\Ambition.Product\module.json"  "$(TargetDir)\Modules\Ambition.Product\"</PostBuildEvent>
   </PropertyGroup>
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
