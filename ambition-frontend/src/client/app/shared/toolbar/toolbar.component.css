@@ -21,3 +21,10 @@ h1 {
   margin-top: 12px;
   width: 24px;
 }
+
+.sign-out {
+  float: right;
+  height: 24px;
+  margin-top: 4px;
+  min-width: 50px;
+}

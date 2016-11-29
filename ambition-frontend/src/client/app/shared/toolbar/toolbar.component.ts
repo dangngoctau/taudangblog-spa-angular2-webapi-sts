@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Router } from '@angular/router';
 
 /**
  * This class represents the toolbar component.
@@ -10,5 +11,12 @@ import { Component } from '@angular/core';
   styleUrls: ['toolbar.component.css']
 })
 
-export class ToolbarComponent {}
+export class ToolbarComponent {
+  constructor(private router: Router) {
+  }
+
+  signOut() {
+    this.router.navigate(['oauth_signout']);
+  }
+}
 
